@@ -1,7 +1,5 @@
 # KAR — U.S. Labor Market Agent
 
-(https://github.com/eli-devop/KAR/actions/workflows/ci.yml/badge.svg)](https://github.com/eli-devop/KAR/actions/workflows/ci.yml)
-
 > **Live BLS macro readings, AI-exposure forecasts across 342 U.S. occupations, and real-time AI / job-loss news.**
 
 Inspired by [karpathy.ai/jobs](https://karpathy.ai/jobs/) by [Andrej Karpathy](https://karpathy.ai/). KAR is an enterprise AI agent researcher that maps the Bureau of Labor Statistics Occupational Outlook Handbook — covering ~143M U.S. jobs — and uses LLM-powered analysis to score and color each occupation by AI exposure, growth trajectory, and financial autonomy potential.
