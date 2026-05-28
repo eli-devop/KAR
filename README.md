@@ -1,77 +1,178 @@
-# US Job Market Visualizer
+# KAR — U.S. Labor Market Agent
 
-A research tool for visually exploring Bureau of Labor Statistics [Occupational Outlook Handbook](https://www.bls.gov/ooh/) data. This is not a report, a paper, or a serious economic publication — it is a development tool for exploring BLS data visually.
+[![CI](https://github.com/eli-devop/KAR/actions/workflows/ci.yml/badge.svg)](https://github.com/eli-devop/KAR/actions/workflows/ci.yml)
 
-**Live demo: [karpathy.ai/jobs](https://karpathy.ai/jobs/)**
+> **Live BLS macro readings, AI-exposure forecasts across 342 U.S. occupations, and real-time AI / job-loss news.**
 
-## What's here
+Inspired by [karpathy.ai/jobs](https://karpathy.ai/jobs/) by [Andrej Karpathy](https://karpathy.ai/). KAR is an enterprise AI agent researcher that maps the Bureau of Labor Statistics Occupational Outlook Handbook — covering ~143M U.S. jobs — and uses LLM-powered analysis to score and color each occupation by AI exposure, growth trajectory, and financial autonomy potential.
 
-The BLS OOH covers **342 occupations** spanning every sector of the US economy, with detailed data on job duties, work environment, education requirements, pay, and employment projections. We scraped all of it and built an interactive treemap visualization where each rectangle's **area** is proportional to total employment and **color** shows the selected metric — toggle between BLS projected growth outlook, median pay, education requirements, and AI exposure.
+**Live at:** [laboreconomics.dev](https://laboreconomics.dev)
 
-## LLM-powered coloring
+---
 
-The repo includes scrapers, parsers, and a pipeline for writing custom LLM prompts to score and color occupations by any criteria. You write a prompt, the LLM scores each occupation, and the treemap colors accordingly. The "Digital AI Exposure" layer is one example — it estimates how much current AI (which is primarily digital) will reshape each occupation. But you could write a different prompt for any question — e.g. exposure to humanoid robotics, offshoring risk, climate impact — and re-run the pipeline to get a different coloring. See `score.py` for the prompt and scoring pipeline.
+## What is KAR?
 
-**What "AI Exposure" is NOT:**
-- It does **not** predict that a job will disappear. Software developers score 9/10 because AI is transforming their work — but demand for software could easily *grow* as each developer becomes more productive.
-- It does **not** account for demand elasticity, latent demand, regulatory barriers, or social preferences for human workers.
-- The scores are rough LLM estimates (Gemini Flash via OpenRouter), not rigorous predictions. Many high-exposure jobs will be reshaped, not replaced.
+KAR (Karpathy AI Researcher) is a full-stack intelligence platform for exploring the U.S. labor market through the lens of AI disruption:
 
-## Data pipeline
+- **Live BLS Macro Dashboard** — Real-time unemployment, labor-force participation, nonfarm payrolls, and earnings from the Bureau of Labor Statistics API, refreshed every 2 hours.
+- **AI Exposure Scoring** — 342 occupations scored across 6 dimensions (cognitive load, digital dexterity, physical-world barrier, creative originality, social-emotional bandwidth, economic substitutability).
+- **Horizon Forecasting** — Project employment, wage, and AI-exposure trajectories across 30-day, 60-day, 90-day, 1-year, 2-year, 3-year, 4-year, and 5-year horizons.
+- **Labor Market Map** — Interactive grid visualization of occupations by AI exposure vs. growth rate.
+- **Ask KAR** — Conversational AI agent for querying labor market data and forecasts.
+- **Workforce Upload** — Upload and analyze custom workforce files for organizational planning.
+- **Software 3.0 Analysis** — Andrej Karpathy's Software 3.0 framework applied to labor market predictions.
 
-1. **Scrape** (`scrape.py`) — Playwright (non-headless, BLS blocks bots) downloads raw HTML for all 342 occupation pages into `html/`.
-2. **Parse** (`parse_detail.py`, `process.py`) — BeautifulSoup converts raw HTML into clean Markdown files in `pages/`.
-3. **Tabulate** (`make_csv.py`) — Extracts structured fields (pay, education, job count, growth outlook, SOC code) into `occupations.csv`.
-4. **Score** (`score.py`) — Sends each occupation's Markdown description to an LLM with a scoring rubric. Each occupation gets an AI Exposure score from 0-10 with a rationale. Results saved to `scores.json`. Fork this to write your own prompts.
-5. **Build site data** (`build_site_data.py`) — Merges CSV stats and AI exposure scores into a compact `site/data.json` for the frontend.
-6. **Website** (`site/index.html`) — Interactive treemap visualization with four color layers: BLS Outlook, Median Pay, Education, and Digital AI Exposure.
+---
 
-## Key files
+## Tech Stack
 
-| File | Description |
-|------|-------------|
-| `occupations.json` | Master list of 342 occupations with title, URL, category, slug |
-| `occupations.csv` | Summary stats: pay, education, job count, growth projections |
-| `scores.json` | AI exposure scores (0-10) with rationales for all 342 occupations |
-| `prompt.md` | All data in a single file, designed to be pasted into an LLM for analysis |
-| `html/` | Raw HTML pages from BLS (source of truth, ~40MB) |
-| `pages/` | Clean Markdown versions of each occupation page |
-| `site/` | Static website (treemap visualization) |
+| Layer | Technology |
+|-------|-----------|
+| Framework | [TanStack Start v1](https://tanstack.com/start) — full-stack React 19 with SSR/SSG |
+| Build Tool | [Vite 7](https://vitejs.dev/) |
+| UI | [React 19](https://react.dev/), [Tailwind CSS v4](https://tailwindcss.com/), [Radix UI](https://www.radix-ui.com/) primitives |
+| Charts | [Recharts](https://recharts.org/) |
+| Backend | [Lovable Cloud](https://lovable.dev) — database, auth, storage, realtime |
+| Server Functions | TanStack `createServerFn` (edge runtime) |
+| Data Fetching | [TanStack Query v5](https://tanstack.com/query) |
+| Type Safety | TypeScript 5.8 + Zod |
 
-## LLM prompt
+---
 
-[`prompt.md`](prompt.md) packages all the data — aggregate statistics, tier breakdowns, exposure by pay/education, BLS growth projections, and all 342 occupations with their scores and rationales — into a single file (~45K tokens) designed to be pasted into an LLM. This lets you have a data-grounded conversation about AI's impact on the job market without needing to run any code. Regenerate it with `uv run python make_prompt.py`.
+## Quick Start
 
-## Setup
+### Prerequisites
 
-```
-uv sync
-uv run playwright install chromium
-```
+- [Bun](https://bun.sh/) (preferred) or Node.js 20+
+- A [Lovable Cloud](https://lovable.dev) project (for backend features)
 
-Requires an OpenRouter API key in `.env`:
-```
-OPENROUTER_API_KEY=your_key_here
-```
-
-## Usage
+### Install & Run
 
 ```bash
-# Scrape BLS pages (only needed once, results are cached in html/)
-uv run python scrape.py
+# Clone the repo
+git clone https://github.com/eli-devop/KAR.git
+cd KAR
 
-# Generate Markdown from HTML
-uv run python process.py
+# Install dependencies
+bun install
 
-# Generate CSV summary
-uv run python make_csv.py
-
-# Score AI exposure (uses OpenRouter API)
-uv run python score.py
-
-# Build website data
-uv run python build_site_data.py
-
-# Serve the site locally
-cd site && python -m http.server 8000
+# Start the dev server
+bun dev
 ```
+
+The dev server will start at `http://localhost:3000`.
+
+### Build for Production
+
+```bash
+bun run build
+```
+
+---
+
+## Project Structure
+
+```text
+src/
+  routes/              # File-based routing (TanStack Router)
+    index.tsx           # Dashboard (live BLS macro tiles, KPIs, news)
+    map.tsx             # Labor Market Map (occupation grid)
+    chat.tsx            # Ask KAR (conversational agent)
+    capabilities.tsx    # AI capability dimensions
+    scoring.tsx         # Scoring Studio
+    workforce.tsx       # Workforce file upload & analysis
+    reports.tsx         # Reports
+    __root.tsx          # Root layout (sidebar, nav, providers)
+  components/
+    kar/                # KAR-specific components (StatCard, HorizonSelector, etc.)
+    ui/                 # shadcn/ui components
+  lib/                  # Business logic & server functions
+    forecast.functions.ts
+    news.functions.ts
+    alerts.functions.ts
+  hooks/                # Custom React hooks
+  contexts/             # React contexts (HorizonContext)
+  data/                 # Static data (occupations, BLS series IDs)
+  styles.css            # Tailwind v4 entry + design tokens
+supabase/               # Database migrations
+public/                 # Static assets
+```
+
+---
+
+## Environment Variables
+
+The following variables are pre-configured via Lovable Cloud:
+
+| Variable | Purpose |
+|----------|---------|
+| `VITE_SUPABASE_URL` | Lovable Cloud project URL |
+| `VITE_SUPABASE_PUBLISHABLE_KEY` | Public API key |
+| `SUPABASE_SERVICE_ROLE_KEY` | Server-side admin key (never expose to client) |
+
+> **Note:** The `.env` file is auto-generated and should not be edited manually.
+
+---
+
+## Key Features
+
+### Live Data Pipeline
+
+Every 2 hours, KAR automatically:
+
+1. Fetches the latest BLS macro series (unemployment, payrolls, participation, earnings)
+2. Scrapes AI and job-loss news from trusted sources
+3. Detects labor market anomalies and generates alerts
+4. Updates forecast narratives using LLM analysis
+
+Trigger a manual refresh from the dashboard or via API.
+
+### Horizon Forecasting
+
+KAR projects across 8 time horizons:
+
+| Horizon | Use Case |
+|---------|----------|
+| **Now** | Current BLS readings + live news |
+| **30d** | Near-term policy shifts, earnings season |
+| **60d** | Quarterly rebalancing signals |
+| **90d** | Budget-cycle impacts |
+| **1y** | Annual planning, election-year policy |
+| **2y** | Mid-cycle technology adoption |
+| **3y** | Workforce restructuring, Fed targets |
+| **4y** | Presidential term horizon |
+| **5y** | Long-range strategic planning |
+
+### Software 3.0 Framework
+
+KAR incorporates Andrej Karpathy's [Software 3.0](https://karpathy.ai/software3.0) vision — using natural language prompts to "program" LLMs for labor market analysis. The platform demonstrates how Software 1.0 (traditional code), Software 2.0 (ML models), and Software 3.0 (prompt-driven reasoning) combine to produce actionable labor market intelligence.
+
+---
+
+## Contributing
+
+We welcome contributions! Please see our [Contributing Guide](./.github/CONTRIBUTING.md) and [Code of Conduct](./.github/CODE_OF_CONDUCT.md).
+
+### Before Submitting
+
+1. **Lint & format:** `bun run lint && bun run format`
+2. **Type-check:** `bunx tsc --noEmit`
+3. **Test your changes** locally with `bun dev`
+
+### Security
+
+If you discover a security vulnerability, please email the maintainers directly rather than opening a public issue.
+
+---
+
+## License
+
+[MIT](./LICENSE) © [eli-devop](https://github.com/eli-devop)
+
+---
+
+## Acknowledgments
+
+- [Andrej Karpathy](https://karpathy.ai/) — for [karpathy.ai/jobs](https://karpathy.ai/jobs/), the original inspiration
+- [U.S. Bureau of Labor Statistics](https://www.bls.gov/ooh/) — for the Occupational Outlook Handbook data
+- [Lovable](https://lovable.dev) — for the full-stack development platform
