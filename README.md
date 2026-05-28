@@ -5,7 +5,7 @@
 
 Inspired by [karpathy.ai/jobs](https://karpathy.ai/jobs/) by [Andrej Karpathy](https://karpathy.ai/). KAR is an enterprise AI agent researcher that maps the Bureau of Labor Statistics Occupational Outlook Handbook — covering ~143M U.S. jobs — and uses LLM-powered analysis to score and color each occupation by AI exposure, growth trajectory, and financial autonomy potential.
 
-**Live at:** [laboreconomics.dev](https://laboreconomics.dev)
+**Live WEBSITE at:** [laboreconomics.dev](https://laboreconomics.dev)
 
 ---
 
