@@ -1,3 +1,4 @@
+<img width="1254" height="1254" alt="kar" src="https://github.com/user-attachments/assets/98deed1d-4766-41eb-8741-5afe0b609ded" />
 # KAR — U.S. Labor Market Agent
 
 > **Live BLS macro readings, AI-exposure forecasts across 342 U.S. occupations, and real-time AI / job-loss news.**
