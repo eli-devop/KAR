@@ -1,6 +1,6 @@
 # KAR — U.S. Labor Market Agent
 
-[![CI](https://github.com/eli-devop/KAR/actions/workflows/ci.yml/badge.svg)](https://github.com/eli-devop/KAR/actions/workflows/ci.yml)
+(https://github.com/eli-devop/KAR/actions/workflows/ci.yml/badge.svg)](https://github.com/eli-devop/KAR/actions/workflows/ci.yml)
 
 > **Live BLS macro readings, AI-exposure forecasts across 342 U.S. occupations, and real-time AI / job-loss news.**
 
