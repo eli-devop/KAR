@@ -5,7 +5,7 @@
 # KAR — U.S. Labor Market AI Agent
 
 [![MIT License](https://img.shields.io/badge/license-MIT-blue.svg)](./LICENSE)
-[![Live Website](https://img.shields.io/badge/demo-live-brightgreen)](https://laboreconomics.dev)
+[![Live Website](https://img.shields.io/badge/website-live-brightgreen)](https://laboreconomics.dev)
 [![React](https://img.shields.io/badge/React-19-61DAFB?logo=react)](https://react.dev)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.8-3178C6?logo=typescript)](https://www.typescriptlang.org/)
 [![TanStack](https://img.shields.io/badge/TanStack_Start-v1-FF4154)](https://tanstack.com/start)
