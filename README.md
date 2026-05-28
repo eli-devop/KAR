@@ -220,7 +220,7 @@ Please read our [Code of Conduct](./.github/CODE_OF_CONDUCT.md) before contribut
 
 ## 🔒 Security
 
-Found a vulnerability? Please **do not** open a public issue. Email the maintainers directly. We take security seriously and will respond within 48 hours.
+Found a vulnerability? Please **do not** open a public issue. Email the maintainer directly at dmesa@e-l-i.net. We take security seriously and will respond within 48 hours.
 
 ---
 
