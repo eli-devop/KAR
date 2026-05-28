@@ -243,6 +243,6 @@ Found a vulnerability? Please **do not** open a public issue. Email the maintain
 
 **If KAR helps you understand the future of work, please consider giving it a ⭐ — it helps more people find the project!**
 
-[⭐ Star on GitHub](https://github.com/eli-devop/KAR) · [🌐 Live Demo](https://laboreconomics.dev) · [🐦 Follow Updates](https://github.com/eli-devop)
+[⭐ Star on GitHub](https://github.com/eli-devop/KAR) · [🌐 Live Website](https://laboreconomics.dev) · [🐦 Follow Updates](https://github.com/eli-devop)
 
 </div>
