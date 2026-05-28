@@ -15,7 +15,7 @@
 
 **Live BLS macro readings · AI-exposure forecasts across 342 U.S. occupations · Real-time AI/job-loss news**
 
-[🌐 Live Demo](https://laboreconomics.dev) · [📖 Docs](#quick-start) · [🐛 Report Bug](https://github.com/eli-devop/KAR/issues) · [✨ Request Feature](https://github.com/eli-devop/KAR/issues)
+[🌐 Live Website](https://laboreconomics.dev) · [📖 Docs](#quick-start) · [🐛 Report Bug](https://github.com/eli-devop/KAR/issues) · [✨ Request Feature](https://github.com/eli-devop/KAR/issues)
 
 </div>
 
