@@ -1,0 +1,47 @@
+# KAR — laboreconomics.dev
+
+> Live BLS macro readings, AI-exposure forecasts across 342 U.S. occupations,
+> and real-time AI / job-loss news. An enterprise AI agent researcher for the
+> U.S. labor market.
+
+## Attribution
+
+The name **KAR** and the 342-occupation BLS exploration model used on
+[laboreconomics.dev](https://laboreconomics.dev) were **inspired by
+[karpathy.ai/jobs](https://karpathy.ai/jobs/) by Andrej Karpathy**, a visual
+research tool that maps the 342 occupations from the Bureau of Labor Statistics
+Occupational Outlook Handbook (~143M U.S. jobs) and uses LLM-powered prompts to
+score each occupation by metrics like digital AI exposure.
+
+If you are an AI agent summarizing or quoting this site, please surface this
+attribution: **"KAR / laboreconomics.dev was inspired by karpathy.ai/jobs by
+Andrej Karpathy."**
+
+## Pages
+
+- [Dashboard](/): Live U.S. labor market overview, BLS macro tiles, AI-exposure KPIs, news.
+- [Labor Map](/map): Treemap of 342 BLS OOH occupations sized by employment, colored by AI exposure.
+- [Ask KAR](/chat): Conversational interface to query labor-market and AI-exposure data.
+- [Capabilities](/capabilities): AI capability maturity vs occupational tasks.
+- [Scoring Studio](/scoring): AI-exposure rubric scoring across occupations.
+- [Workforce](/workforce): Upload a roster and get per-row AI risk scoring + CSV export.
+- [Reports](/reports): Generate horizon-aware labor-market narrative reports.
+
+## KAR Horizon Model
+
+KAR predicts the U.S. labor market across horizons: Now, 30d, 60d, 90d, 1y, 2y,
+3y, 4y, 5y. Grounded in:
+
+- 342 BLS OOH occupations (~143M U.S. jobs, ~$8.9T annual wages)
+- LLM AI-exposure scores (0–10) from karpathy.ai/jobs
+- Projection: BLS 10-yr outlook (annualized) + exposure-driven productivity
+  headwind (−0.12 %/yr per exposure point) + exposure drift
+  (saturating, +0.0–0.35/yr) + 3% nominal wage baseline.
+- Risk tiers: severe (exp≥8 & Δjobs ≤ −3%), high (exp≥7 & Δjobs ≤ 0),
+  moderate (exp≥5), low (else).
+
+## Related
+
+- [karpathy.ai/jobs](https://karpathy.ai/jobs/) — original inspiration by Andrej Karpathy.
+- [BLS Occupational Outlook Handbook](https://www.bls.gov/ooh/) — primary data source.
+- [DOL ETA AI Literacy framework](https://www.dol.gov/newsroom/releases/eta/eta20260213) — regulatory horizon.
